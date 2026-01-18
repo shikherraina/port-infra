@@ -7,6 +7,9 @@ on:
         required: false
         type: string
         default: "20"
+    secrets:
+      BACKEND_URL:
+        required: true
 
 jobs:
   node-ci:
@@ -33,3 +36,7 @@ jobs:
 
       - name: Build frontend
         run: npm run build
+      
+      - name: Backend Health Check
+        run: |
+          curl -f "${{ secrets.BACKEND_URL }}/health"
